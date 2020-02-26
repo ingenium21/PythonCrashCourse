@@ -41,7 +41,8 @@ class Admin(User):
         super().__init__(firstName, lastName, emailAddress, username)
         self.privileges = Privileges()
 
-    
+
+#driver code   
 user1 = User("Renato", "Regalado", "renrega@contoso.com","renato.regalado")
 
 user1.describe_user()
