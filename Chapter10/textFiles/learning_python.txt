@@ -1,0 +1,5 @@
+In Python you can create classes
+In Python you can iterate through arrays
+In Python you can take user Input
+In Python you can set and change variables
+In Python you can create Machine Learning Algorithms
