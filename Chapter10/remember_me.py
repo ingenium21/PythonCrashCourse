@@ -27,7 +27,12 @@ def greetUser():
     #greet user by name
     username = getStoredUsername()
     if username:
-        print(f"Welcome back, {username}!")
+        quest = input(f"Are you {username}(y/n)? ")
+        if quest == "y":
+            print(f"Welcome back, {username}!")
+        else:
+            username = getNewUsername()
+            print(f"We'll remember you when you come back, {username}!")
     else:
         username = getNewUsername()
         print(f"We'll remember you when you come back, {username}!")
