@@ -11,7 +11,8 @@ class Marius:
         self.screen_rect = bs_game.screen.get_rect()
 
         #Load the mario image and get its rect
-        self.image = pygame.image.load('images/mario1.png')
+        self.image = pygame.image.load('images/mario1.png').convert()
+        self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect()
         
         #start every new mario at the center of the screen
