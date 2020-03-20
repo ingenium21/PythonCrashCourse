@@ -24,16 +24,16 @@ class Rocket:
         self.image = pygame.image.load('Images/cohete_off.png')
         self.rect = self.image.get_rect()
 
-        #Start each new rocket at the bottom center of the screen
+        #Start each new rocket at the center of the screen
         self.rect.centerx = self.screen_rect.centerx
         self.rect.centery = self.screen_rect.centery
 
 
         #Store a decimal value of the rocket's horizontal position
-        self.centerx = float(self.rect.x)
+        self.centerx = float(self.rect.centerx)
 
         #Store a decimal value of the rocket's vertical position
-        self.centery = float(self.rect.y)
+        self.centery = float(self.rect.centery)
     
     def update(self):
         """Update the rocket's position based on the movement flags"""

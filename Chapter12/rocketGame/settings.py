@@ -10,8 +10,8 @@ class Settings:
     def __init__(self):
         """initialize the game's settings"""
         #screen Settings
-        self.screen_width = 800
-        self.screen_height = 600
+        self.screen_width = 1024
+        self.screen_height = 768
         self.bg_color = (32, 32, 32)
 
         #rocket settings
