@@ -1,5 +1,9 @@
 """Import pygame"""
 import pygame
+import os
+
+path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(path) #this is used so that my game runs in the correct directory
 
 class Rocket:
     """A class to manage the rocket"""
@@ -17,7 +21,7 @@ class Rocket:
         self.moving_down = False
 
         #Load the rocket image and get its rect
-        self.image = pygame.image.load('cohete_off.png')
+        self.image = pygame.image.load('Images/cohete_off.png')
         self.rect = self.image.get_rect()
 
         #Start each new rocket at the bottom center of the screen
