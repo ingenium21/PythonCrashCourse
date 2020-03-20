@@ -72,6 +72,8 @@ class RocketGame:
         elif event.key == pygame.K_DOWN:
             #move the rocket down
             self.rocket.moving_down = True
+        elif event.key == pygame.K_q:
+            sys.exit()
     
     def _check_keyup_events(self, event):
         """Respond to keypress releases"""
