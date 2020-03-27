@@ -12,6 +12,7 @@ import sys
 import pygame
 from settings import Settings
 from rocket import Rocket
+from lasers import Laser
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH) #this is used so that my game runs in the correct directory
@@ -31,6 +32,8 @@ class SidewaysRocket:
 
         #import the rocket and make an instance of it
         self.rocket = Rocket(self)
+        #import the laser sprites
+        self.lasers = pygame.sprite.Group()
 
     def run_game(self):
         """Start the main loop of the game."""
@@ -38,6 +41,7 @@ class SidewaysRocket:
             #watch for keyboard and mouse events
             self._check_events()
             self.rocket.update()
+            self._update_lasers()
             self._update_screen()
 
     def _check_events(self):
@@ -56,27 +60,47 @@ class SidewaysRocket:
         self.screen.fill(self.settings.bg_color)
         #draw the rocket
         self.rocket.blitme()
+        #draw lasers
+        for laser in self.lasers.sprites():
+            laser.draw_laser()
         #Make the most recently drawn screen visible
         pygame.display.flip()
 
     def _check_keydown_events(self, event):
         """Respond to keypress down events"""
-        if event.key == pygame.K_UP:
+        if event.key == pygame.K_w:
             #move the rocket up
             self.rocket.moving_up = True
-        elif event.key == pygame.K_DOWN:
+        elif event.key == pygame.K_s:
             #move the rocket down
             self.rocket.moving_down = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_laser()
         elif event.key == pygame.K_q:
             sys.exit()
 
     def _check_keyup_events(self, event):
         """Respond to keypress releases"""
         #stop moving the rocket
-        if event.key == pygame.K_UP:
+        if event.key == pygame.K_w:
             self.rocket.moving_up = False
-        if event.key == pygame.K_DOWN:
+        if event.key == pygame.K_s:
             self.rocket.moving_down = False
+
+    def _fire_laser(self):
+        """Create a new laser and add it to the lasers group"""
+        if len(self.lasers) < self.settings.lasers_allowed:
+            new_laser = Laser(self)
+            self.lasers.add(new_laser)
+        
+    def _update_lasers(self):
+        """Update the position of lasers and get rid of old lasers"""
+        #update laser positions
+        self.lasers.update()
+        #Get rid of bullets that have disappeared
+        for laser in self.lasers.copy():
+            if laser.rect.left >= self.rocket.screen_rect.right:
+                self.lasers.remove(laser)
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game
