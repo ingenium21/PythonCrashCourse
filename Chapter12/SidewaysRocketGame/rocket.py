@@ -32,7 +32,7 @@ class Rocket:
         """Update the rocket's position based on the movement flags"""
         if self.moving_up and self.rect.top > self.screen_rect.top:
             self.y -= self.settings.rocket_speed
-        elif self.moving_down and self.rect.bottom < self.screen_rect.bottom :
+        elif self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.rocket_speed
         
         #update rect object from self.x and self.y
