@@ -1,7 +1,7 @@
 """
 Author: Renato Regalado
 Created: March 27, 2020
-Exercise 12-6
+Exercise 13-5+6
 Write a game that places a ship on the left side of the screen and allows the player to move the ship up and down. 
 Make theship fire a bullet that travels right across the screen when the player presses spacebar.
 Make sure bullets are deleted once they disappear off the screen  
@@ -10,10 +10,11 @@ Make sure bullets are deleted once they disappear off the screen
 import os
 import sys
 import pygame
+
 from settings import Settings
 from rocket import Rocket
 from lasers import Laser
-
+from enemy import Enemy
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH) #this is used so that my game runs in the correct directory
 
@@ -34,6 +35,8 @@ class SidewaysRocket:
         self.rocket = Rocket(self)
         #import the laser sprites
         self.lasers = pygame.sprite.Group()
+        #import the enemy sprites
+        self.enemy = pygame.sprite.Group()
 
     def run_game(self):
         """Start the main loop of the game."""
@@ -101,6 +104,11 @@ class SidewaysRocket:
         for laser in self.lasers.copy():
             if laser.rect.left >= self.rocket.screen_rect.right:
                 self.lasers.remove(laser)
+    
+    def _create_enemy(self):
+        enemy = Enemy(self):
+        enemy.rect.x = enemy.x
+        
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game
