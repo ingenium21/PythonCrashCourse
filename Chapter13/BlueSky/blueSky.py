@@ -30,6 +30,7 @@ class BlueSky:
 
         self.marius = Marius(self)
         self.rain = pygame.sprite.Group()
+        self._create_rain()
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -38,16 +39,17 @@ class BlueSky:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+            self._create_rain()
+            self._update_rain()
             self._update_Screen()
-
-
     
     def _update_Screen(self):
         #Redraw the screen during each pass through the loop
         self.screen.fill(self.bg_color)
-        #draw the rain
-        self.rain
+        #draw marius
         self.marius.blitme()
+        #draw the rain
+        self.rain.draw(self.screen)
         #Make the most recently drawn screen visible
         pygame.display.flip()
     
@@ -59,7 +61,7 @@ class BlueSky:
 
     def _update_rain(self):
         """move the rain downward"""
-        self.raindrop.update()
+        self.rain.update()
         for raindrop in self.rain.copy():
             if raindrop.rect.top >= 600:
                 self.rain.remove(raindrop)

@@ -16,7 +16,7 @@ class Marius:
         self.rect = self.image.get_rect()
         
         #start every new mario at the center of the screen
-        self.rect.centerx = self.screen_rect.centerx
+        self.rect.midbottom = self.screen_rect.midbottom
     
     def blitme(self):
         self.screen.blit(self.image, self.rect)

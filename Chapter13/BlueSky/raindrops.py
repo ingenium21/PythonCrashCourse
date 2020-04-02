@@ -4,13 +4,15 @@ from pygame.sprite import Sprite
 
 class Raindrop(Sprite):
     def __init__(self, bs_game):
-        """Initialize the rain and set the starting position"""
+        """Models raindrop object"""
+        super().__init__()
         self.screen = bs_game.screen
-        self.screen_rect = bs_game.get_rect()
+        # self.screen_rect = bs_game.get_rect()
 
         #Load the rain image and get its rect
-        self.image = pygame.image.load('images/raindrop.png')
+        self.image = pygame.image.load('images/raindrop.png').convert()
         self.image = pygame.transform.scale(self.image, (55, 54))
+        self.image.set_colorkey((0, 0, 0))
         self.rect = self.image.get_rect()
 
         #Start each new raindrop near the top left of the screenj.
@@ -22,13 +24,13 @@ class Raindrop(Sprite):
         self.y = float(self.rect.y)
 
         #star speed
-        self.star_speed = 2
+        self.star_speed = 10
 
     def blitme(self):
         """draw the raindrop at its current position"""
         self.screen.blit(self.image, self.rect)
     
-    def update_rain(self):
+    def update(self):
         """Move the raindrop down """
         self.y += self.star_speed
         self.rect.y = self.y
