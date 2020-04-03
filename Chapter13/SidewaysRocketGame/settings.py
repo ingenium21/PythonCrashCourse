@@ -23,3 +23,8 @@ class Settings:
         self.laser_height = 15
         self.laser_color = (0, 255, 255)
         self.lasers_allowed = 3
+
+        #enemy settings
+        self.enemy_speed = 1.0
+        
+        

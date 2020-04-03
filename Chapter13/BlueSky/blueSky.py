@@ -30,7 +30,7 @@ class BlueSky:
 
         self.marius = Marius(self)
         self.rain = pygame.sprite.Group()
-        self._create_rain()
+        # self._create_rain()
 
     def run_game(self):
         """Start the main loop for the game."""

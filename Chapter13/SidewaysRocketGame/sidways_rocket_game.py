@@ -36,7 +36,9 @@ class SidewaysRocket:
         #import the laser sprites
         self.lasers = pygame.sprite.Group()
         #import the enemy sprites
-        self.enemy = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
+
+        self._create_enemies()
 
     def run_game(self):
         """Start the main loop of the game."""
@@ -66,6 +68,9 @@ class SidewaysRocket:
         #draw lasers
         for laser in self.lasers.sprites():
             laser.draw_laser()
+        
+        #draw the enemies
+        self.enemies.draw(self.screen)
         #Make the most recently drawn screen visible
         pygame.display.flip()
 
@@ -105,9 +110,17 @@ class SidewaysRocket:
             if laser.rect.left >= self.rocket.screen_rect.right:
                 self.lasers.remove(laser)
     
-    def _create_enemy(self):
-        enemy = Enemy(self):
-        enemy.rect.x = enemy.x
+    def _create_enemies(self):
+        enemy = Enemy(self)
+        enemy.rect.x = self.settings.screen_width - 10
+        self.enemies.add(enemy)
+            
+    def _update_enemy(self):
+        """move the enemy to the left"""
+        self.enemies.update()
+        for enemy in self.enemies.copy():
+            if enemy.rect.right <= 0:
+                self.enemies.remove(enemy)
         
 
 if __name__ == '__main__':

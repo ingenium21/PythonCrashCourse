@@ -11,8 +11,8 @@ class Enemy(Sprite):
         self.settings = sr_game.settings
 
         #Load the enemy image and sets its rect attribute.
-        self.image = pygame.image.load('images/enemy.png')
-        self.image = pygame.transform.scale(self.image, (55, 54))
+        self.image = pygame.image.load('images/enemy.png').convert()
+        self.image = pygame.transform.scale(self.image, (54, 55))
         self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect()
 
