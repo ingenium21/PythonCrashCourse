@@ -47,6 +47,7 @@ class SidewaysRocket:
             self._check_events()
             self.rocket.update()
             self._update_lasers()
+            self._update_enemy()
             self._update_screen()
 
     def _check_events(self):

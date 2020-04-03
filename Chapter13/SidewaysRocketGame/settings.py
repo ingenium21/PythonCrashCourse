@@ -25,6 +25,6 @@ class Settings:
         self.lasers_allowed = 3
 
         #enemy settings
-        self.enemy_speed = 1.0
+        self.enemy_speed = 0.5
         
         

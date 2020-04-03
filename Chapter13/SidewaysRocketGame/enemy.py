@@ -30,5 +30,5 @@ class Enemy(Sprite):
     
     def update(self):
         """Move the enemy to the left """
-        self.x -= self.settings.enemy_speed
+        self.x -= 0.1
         self.rect.x = self.x
