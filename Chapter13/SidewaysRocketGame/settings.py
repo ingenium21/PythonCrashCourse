@@ -16,6 +16,7 @@ class Settings:
 
         #rocket settings
         self.rocket_speed = 1
+        self.rocket_limit = 2
 
         #Bullet Settings
         self.laser_speed = 1.0

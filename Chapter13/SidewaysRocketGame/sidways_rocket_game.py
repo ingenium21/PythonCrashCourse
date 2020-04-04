@@ -9,13 +9,17 @@ Make sure bullets are deleted once they disappear off the screen
 
 import os
 import sys
-import pygame
+from time import sleep
 import random
+import pygame
+
+
 
 from settings import Settings
 from rocket import Rocket
 from lasers import Laser
 from enemy import Enemy
+from game_stats import GameStats
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH) #this is used so that my game runs in the correct directory
 
@@ -32,6 +36,9 @@ class SidewaysRocket:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Sideways Rocket Game")
 
+        #Create an instance to store game statistics
+        self.stats = GameStats(self)
+
         #import the rocket and make an instance of it
         self.rocket = Rocket(self)
         #import the laser sprites
@@ -46,9 +53,10 @@ class SidewaysRocket:
         while True:
             #watch for keyboard and mouse events
             self._check_events()
-            self.rocket.update()
-            self._update_lasers()
-            self._update_enemy()
+            if self.stats.game_active:
+                self.rocket.update()
+                self._update_lasers()
+                self._update_enemy()
             self._update_screen()
 
     def _check_events(self):
@@ -126,9 +134,11 @@ class SidewaysRocket:
     
     def _create_enemies(self):
         """Create an enemy ship"""
-        enemy = Enemy(self)
-        enemy.rect.y = random.randint(1, self.settings.screen_height)
-        self.enemies.add(enemy)
+        enemy_number = random.randint(1,5)
+        for _ in range(enemy_number):
+            enemy = Enemy(self)
+            enemy.rect.y = random.randint(1, self.settings.screen_height)
+            self.enemies.add(enemy)
             
     def _update_enemy(self):
         """move the enemy to the left"""
@@ -136,6 +146,10 @@ class SidewaysRocket:
         for enemy in self.enemies.copy():
             if enemy.rect.right <= 0:
                 self.enemies.remove(enemy)
+        
+        #look for enemy-rocket collision
+        if pygame.sprite.spritecollideany(self.rocket, self.enemies):
+            self._rocket_hit()
     
     def _check_laser_enemy_collisons(self):
         #check for any lasers that have hit enemies
@@ -146,6 +160,24 @@ class SidewaysRocket:
             #destroy lasers and create a new fleet.
             self.lasers.empty()
             self._create_enemies()
+    
+    def _rocket_hit(self):
+        if self.stats.rockets_left > 0:
+            #decreaset the remaining rockets
+            self.stats.rockets_left -= 1
+            #get rid of any remaining
+            self.enemies.empty()
+            self.lasers.empty()
+
+            #Pause
+            sleep(0.5)
+
+            #restore the ship
+            self.rocket.center_rocket()
+            self._create_enemies()
+        
+        else:
+            self.stats.game_active = False
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game
