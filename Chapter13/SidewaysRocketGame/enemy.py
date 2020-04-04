@@ -17,7 +17,7 @@ class Enemy(Sprite):
         self.rect = self.image.get_rect()
 
         #set star rect at top left position
-        self.rect.x = self.rect.width
+        self.rect.x = self.settings.screen_width
         self.rect.y = self.rect.height
 
         #save exact position of star
@@ -30,5 +30,5 @@ class Enemy(Sprite):
     
     def update(self):
         """Move the enemy to the left """
-        self.x -= 0.1
+        self.x -= 0.2
         self.rect.x = self.x

@@ -10,6 +10,7 @@ Make sure bullets are deleted once they disappear off the screen
 import os
 import sys
 import pygame
+import random
 
 from settings import Settings
 from rocket import Rocket
@@ -110,10 +111,13 @@ class SidewaysRocket:
         for laser in self.lasers.copy():
             if laser.rect.left >= self.rocket.screen_rect.right:
                 self.lasers.remove(laser)
+        
+        self._check_laser_enemy_collisons()
     
     def _create_enemies(self):
+        """Create an enemy ship"""
         enemy = Enemy(self)
-        enemy.rect.x = self.settings.screen_width - 10
+        enemy.rect.y = random.randint(1, self.settings.screen_height)
         self.enemies.add(enemy)
             
     def _update_enemy(self):
@@ -122,7 +126,16 @@ class SidewaysRocket:
         for enemy in self.enemies.copy():
             if enemy.rect.right <= 0:
                 self.enemies.remove(enemy)
-        
+    
+    def _check_laser_enemy_collisons(self):
+        #check for any lasers that have hit enemies
+        #if so get rid of the alien and the bullet
+        collisions = pygame.sprite.groupcollide(self.lasers, self.enemies, True, True)
+
+        if not self.enemies:
+            #destroy lasers and create a new fleet.
+            self.lasers.empty()
+            self._create_enemies()
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game
