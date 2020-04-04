@@ -84,6 +84,12 @@ class SidewaysRocket:
         elif event.key == pygame.K_s:
             #move the rocket down
             self.rocket.moving_down = True
+            #move the rocket to the right
+        elif event.key == pygame.K_d:
+            self.rocket.moving_right = True
+            #move the rocket to the left
+        elif event.key == pygame.K_a:
+            self.rocket.moving_left = True
         elif event.key == pygame.K_SPACE:
             self._fire_laser()
         elif event.key == pygame.K_q:
@@ -96,6 +102,10 @@ class SidewaysRocket:
             self.rocket.moving_up = False
         if event.key == pygame.K_s:
             self.rocket.moving_down = False
+        if event.key == pygame.K_d:
+            self.rocket.moving_right = False
+        if event.key == pygame.K_a:
+            self.rocket.moving_left = False
 
     def _fire_laser(self):
         """Create a new laser and add it to the lasers group"""
