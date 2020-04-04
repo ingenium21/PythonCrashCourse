@@ -16,6 +16,7 @@ class Settings:
 
         #rocket settings
         self.rocket_speed = 1
+        self.rocket_limit = 2
 
         #Bullet Settings
         self.laser_speed = 1.0
@@ -23,3 +24,8 @@ class Settings:
         self.laser_height = 15
         self.laser_color = (0, 255, 255)
         self.lasers_allowed = 3
+
+        #enemy settings
+        self.enemy_speed = 0.5
+        
+        
