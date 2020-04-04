@@ -20,8 +20,8 @@ class Settings:
 
         #Bullet Settings
         self.laser_speed = 1.0
-        self.laser_width = 3
-        self.laser_height = 15
+        self.laser_width = 15
+        self.laser_height = 3
         self.laser_color = (0, 255, 255)
         self.lasers_allowed = 3
 

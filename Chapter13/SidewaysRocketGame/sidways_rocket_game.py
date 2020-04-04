@@ -137,7 +137,7 @@ class SidewaysRocket:
         enemy_number = random.randint(1,5)
         for _ in range(enemy_number):
             enemy = Enemy(self)
-            enemy.rect.y = random.randint(1, self.settings.screen_height)
+            enemy.rect.y = random.randint(1, self.settings.screen_height - 50)
             self.enemies.add(enemy)
             
     def _update_enemy(self):
