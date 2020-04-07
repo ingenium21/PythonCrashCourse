@@ -14,6 +14,7 @@ import pygame
 from settings import Settings
 from rocketShip import RocketShip
 from target import Target
+from orb import Orb
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH) #this is used so that my game runs in the correct directory
 
@@ -33,6 +34,9 @@ class TargetPractice:
         #import the rocket ship and make an instance of it
         self.rocketShip = RocketShip(self)
 
+        #import the orb
+        self.orbs = pygame.sprite.Group()
+
         #import the target
         self.target = Target(self)
     
@@ -42,6 +46,7 @@ class TargetPractice:
             self._check_events()
             self.rocketShip.update()
             self._update_target()
+            self._update_orbs()
             self._update_screen()
     
     def _update_screen(self):
@@ -54,6 +59,9 @@ class TargetPractice:
 
         #draw the target
         self.target.blitme()
+
+        for orb in self.orbs.sprites():
+            orb.draw_orb()
         #Make the most recently drawn screen visible
         pygame.display.flip()
 
@@ -75,6 +83,8 @@ class TargetPractice:
         elif event.key == pygame.K_s:
             #move the rocket down
             self.rocketShip.moving_down = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_orb()
     
     def _check_keyup_events(self, event):
         if event.key == pygame.K_w:
@@ -85,6 +95,23 @@ class TargetPractice:
     def _update_target(self):
         """move the target up and down"""
         self.target.update()
+
+    def _fire_orb(self):
+        """update the position of the orb"""
+        new_orb = Orb(self)
+        self.orbs.add(new_orb)
+    
+    def _update_orbs(self):
+        """update the position of the orbs and get rid of old orbs"""
+        #update the orb positions
+        self.orbs.update()
+
+        #Get rid of old orbs that have disappeared
+        for orb in self.orbs.copy():
+            if orb.rect.left >= self.rocketShip.screen_rect.right:
+                self.orbs.remove(orb)
+
+
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game

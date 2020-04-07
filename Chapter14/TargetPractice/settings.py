@@ -17,12 +17,12 @@ class Settings:
         #rocket settings
         self.rocket_speed = 1
 
-        #Bullet Settings
-        self.bullet_speed = 1.0
-        self.bullet_width = 3
-        self.bullet_height = 15
-        self.bullet_color = (0, 255, 255)
-        self.bullets_allowed = 3
+        #orb Settings
+        self.orb_speed = 1.0
+        self.orb_width = 55
+        self.orb_height = 54
+        self.orb_color = (0, 255, 255)
+        self.orbs_allowed = 3
 
         #target settings
         self.target_speed = 0.5
