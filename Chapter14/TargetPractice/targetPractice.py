@@ -13,6 +13,7 @@ import pygame
 
 from settings import Settings
 from rocketShip import RocketShip
+from target import Target
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH) #this is used so that my game runs in the correct directory
 
@@ -31,12 +32,16 @@ class TargetPractice:
 
         #import the rocket ship and make an instance of it
         self.rocketShip = RocketShip(self)
+
+        #import the target
+        self.target = Target(self)
     
     def run_game(self):
         while True:
             #watch for keyboard and mouse events
             self._check_events()
             self.rocketShip.update()
+            self._update_target()
             self._update_screen()
     
     def _update_screen(self):
@@ -47,6 +52,8 @@ class TargetPractice:
         #draw the rocket ship
         self.rocketShip.blitme()
 
+        #draw the target
+        self.target.blitme()
         #Make the most recently drawn screen visible
         pygame.display.flip()
 
@@ -74,6 +81,10 @@ class TargetPractice:
             self.rocketShip.moving_up = False
         if event.key == pygame.K_s:
             self.rocketShip.moving_down = False
+    
+    def _update_target(self):
+        """move the target up and down"""
+        self.target.update()
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game
