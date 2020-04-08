@@ -10,6 +10,7 @@ Let the player restart the game with this play button.
 import os
 import sys
 import pygame
+from time import sleep
 
 from settings import Settings
 from rocketShip import RocketShip
@@ -111,6 +112,15 @@ class TargetPractice:
             if orb.rect.left >= self.rocketShip.screen_rect.right:
                 self.orbs.remove(orb)
 
+        #look for orb-target collision
+        if pygame.sprite.spritecollideany(self.target, self.orbs):
+            self._target_hit()
+    
+    def _target_hit(self):
+        #render GOAL! on screen
+        
+
+        sleep(0.5)
 
 
 if __name__ == '__main__':
