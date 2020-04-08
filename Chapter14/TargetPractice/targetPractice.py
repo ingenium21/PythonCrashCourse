@@ -118,9 +118,13 @@ class TargetPractice:
     
     def _target_hit(self):
         #render GOAL! on screen
-        
+        pygame.font.init() # you have to call this at the start, 
+                           # if you want to use this module.
+        myfont = pygame.font.SysFont('Comic Sans MS', 30)
+        textsurface = myfont.render('Some Text', False, (0, 0, 0))
+        self.screen.blit(textsurface,(0,0))
 
-        sleep(0.5)
+        sleep(2)
 
 
 if __name__ == '__main__':
