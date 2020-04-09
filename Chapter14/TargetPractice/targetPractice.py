@@ -16,6 +16,9 @@ from settings import Settings
 from rocketShip import RocketShip
 from target import Target
 from orb import Orb
+from button import Button
+from game_stats import GameStats
+
 PATH = os.path.dirname(os.path.realpath(__file__))
 os.chdir(PATH) #this is used so that my game runs in the correct directory
 
@@ -32,6 +35,9 @@ class TargetPractice:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Target Practice")
 
+        #create an instance to store game statistics
+        self.stats = GameStats(self)
+
         #import the rocket ship and make an instance of it
         self.rocketShip = RocketShip(self)
 
@@ -40,14 +46,18 @@ class TargetPractice:
 
         #import the target
         self.target = Target(self)
+
+        #Create a play button
+        self.play_button = Button(self, "Play")
     
     def run_game(self):
         while True:
             #watch for keyboard and mouse events
             self._check_events()
-            self.rocketShip.update()
-            self._update_target()
-            self._update_orbs()
+            if self.stats.game_active:
+                self.rocketShip.update()
+                self._update_target()
+                self._update_orbs()
             self._update_screen()
     
     def _update_screen(self):
@@ -72,9 +82,12 @@ class TargetPractice:
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                    self._check_keydown_events(event)
+                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                    self._check_keyup_events(event)
+                self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
     
     def _check_keydown_events(self, event):
         """Respond to keypress events"""
@@ -125,7 +138,25 @@ class TargetPractice:
         self.screen.blit(textsurface,(0,0))
 
         sleep(2)
+    
+    def _check_play_button(self, mouse_pos):
+        """Start a new game when the player clicks play"""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            self._start_game()
 
+    def _start_game(self):
+        """start the game"""
+        #reset the game statistics
+        self.stats.reset_stats()
+        self.stats.game_active = True
+
+        #Get rid of any remaining shots
+        self.orbs.empty()
+
+        #Center the target and ship
+        self.target.center_target()
+        self.rocketShip.center_rocketShip
 
 if __name__ == '__main__':
     #Make a game instance, and then run the game

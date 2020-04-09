@@ -48,3 +48,8 @@ class Target:
     def blitme(self):
         """Draw the target at its current location"""
         pygame.draw.rect(self.screen, self.color, self.rect)
+    
+    def center_target(self):
+        """Center the target on the screen"""
+        self.rect.midright = self.screen_rect.midright
+        self.y = float(self.rect.y)

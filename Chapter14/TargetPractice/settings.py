@@ -22,7 +22,7 @@ class Settings:
         self.orb_width = 55
         self.orb_height = 54
         self.orb_color = (0, 255, 255)
-        self.orbs_allowed = 3
+        self.orbs_limit = 3
 
         #target settings
         self.target_speed = 0.5
