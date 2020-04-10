@@ -49,6 +49,9 @@ class TargetPractice:
 
         #Create a play button
         self.play_button = Button(self, "Play")
+
+        #misses
+        self.miss = 0
     
     def run_game(self):
         while True:
@@ -73,6 +76,11 @@ class TargetPractice:
 
         for orb in self.orbs.sprites():
             orb.draw_orb()
+        
+        #draw the play button
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+
         #Make the most recently drawn screen visible
         pygame.display.flip()
 
@@ -114,6 +122,7 @@ class TargetPractice:
         """update the position of the orb"""
         new_orb = Orb(self)
         self.orbs.add(new_orb)
+        
     
     def _update_orbs(self):
         """update the position of the orbs and get rid of old orbs"""
@@ -124,10 +133,14 @@ class TargetPractice:
         for orb in self.orbs.copy():
             if orb.rect.left >= self.rocketShip.screen_rect.right:
                 self.orbs.remove(orb)
+                self.miss += 1
 
         #look for orb-target collision
         if pygame.sprite.spritecollideany(self.target, self.orbs):
             self._target_hit()
+        
+        if self.miss >= 3:
+            self.stats.game_active = False
     
     def _target_hit(self):
         #render GOAL! on screen
@@ -137,7 +150,7 @@ class TargetPractice:
         textsurface = myfont.render('Some Text', False, (0, 0, 0))
         self.screen.blit(textsurface,(0,0))
 
-        sleep(2)
+        self.stats.game_active = False
     
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks play"""
