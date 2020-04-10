@@ -146,9 +146,9 @@ class TargetPractice:
         #render GOAL! on screen
         pygame.font.init() # you have to call this at the start, 
                            # if you want to use this module.
-        myfont = pygame.font.SysFont('Comic Sans MS', 30)
-        textsurface = myfont.render('Some Text', False, (0, 0, 0))
-        self.screen.blit(textsurface,(0,0))
+        #myfont = pygame.font.SysFont('Comic Sans MS', 30)
+        #textsurface = myfont.render('Some Text', False, (0, 0, 0))
+        #self.screen.blit(textsurface,(0,0))
 
         self.stats.game_active = False
     
@@ -162,6 +162,7 @@ class TargetPractice:
         """start the game"""
         #reset the game statistics
         self.stats.reset_stats()
+        self.miss = 0
         self.stats.game_active = True
 
         #Get rid of any remaining shots
