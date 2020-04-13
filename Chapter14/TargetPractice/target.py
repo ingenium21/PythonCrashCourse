@@ -56,4 +56,4 @@ class Target:
     
     def shorten_target(self):
         """make the target smaller"""
-        
+        self.rect = self.rect.inflate(0, -1)

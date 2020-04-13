@@ -144,7 +144,7 @@ class TargetPractice:
     
     def _target_hit(self):
         #render GOAL! on screen
-        self.settings.increase_challenge()
+        self.target.shorten_target()
         self.miss = 0
 
         #self.stats.game_active = False
