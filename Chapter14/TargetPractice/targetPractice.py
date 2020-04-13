@@ -144,13 +144,10 @@ class TargetPractice:
     
     def _target_hit(self):
         #render GOAL! on screen
-        pygame.font.init() # you have to call this at the start, 
-                           # if you want to use this module.
-        #myfont = pygame.font.SysFont('Comic Sans MS', 30)
-        #textsurface = myfont.render('Some Text', False, (0, 0, 0))
-        #self.screen.blit(textsurface,(0,0))
+        self.settings.increase_challenge()
+        self.miss = 0
 
-        self.stats.game_active = False
+        #self.stats.game_active = False
     
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks play"""

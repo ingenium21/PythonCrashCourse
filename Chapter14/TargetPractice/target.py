@@ -53,3 +53,7 @@ class Target:
         """Center the target on the screen"""
         self.rect.midright = self.screen_rect.midright
         self.y = float(self.rect.y)
+    
+    def shorten_target(self):
+        """make the target smaller"""
+        
